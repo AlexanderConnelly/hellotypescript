@@ -114,7 +114,7 @@
           ```
           Transpiler reports an error:
           ```
-          src/hellotypescript.ts(5,13): error TS7006: Parameter 'alt'
+          src/hellotypescript.ts(5,13): error TS7006: Parameter 'name'
           implicitly has an 'any' type.
           ```
           Still yields:
