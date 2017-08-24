@@ -169,7 +169,7 @@
           * written in ... TypeScript
           * `npm install -S typescript`
           * similar to other transpilers, like Babel
-          * takes `*.ts(x)` sources and creates `*.js` files
+          * takes `*.ts(x)` sources and creates `*.js(x)` files
           * generates ES3/5/6+ on its own
           * adds code for classes, async/await, etc
           * integrated in IDE: WebStorm, VSC, etc
