@@ -31,8 +31,9 @@
         id: disclaimer
         markdown:
           '''
-          ## Presenter Disclaimer
+          ## Disclaimer about Presenter
           <br/>
+          * Not a TypeScript evangelist or consultant.
           * Had only little experience with JavaScript before.
           * Started with TypeScript and Node in early 2016.
           * There might be gaps and some missing facts.
