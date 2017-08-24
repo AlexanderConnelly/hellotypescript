@@ -1,0 +1,19 @@
+
+$base-font-size: 70px;
+
+html, body, #app, #app>div {
+  height: 100%
+}
+
+.reveal h1 {
+  font-size: $base-font-size ! important;
+}
+.reveal h2 {
+  font-size: $base-font-size - 10px ! important;
+}
+.reveal h3 {
+  font-size: $base-font-size - 20px ! important;
+}
+.reveal p, div, ul, li {
+  font-size: $base-font-size - 30px ! important;
+}

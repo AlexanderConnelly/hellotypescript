@@ -1,0 +1,654 @@
+{
+  options:
+  {
+    controls: true
+  }
+  sections:
+  [
+    {
+      id: title
+      markdown:
+        '''
+        # Hello, TypeScript.
+        <br/>
+        <br/>
+        One *Santa Cruz JavaScript* Meetup presentation.
+        '''
+    }
+    [
+      {
+        id: title-2
+        markdown:
+          '''
+          ### An quick trip into the TypeScript world.
+          '''
+        notes:
+          '''
+          * introduce yourself (where from, current company)
+          '''
+      }
+      {
+        id: disclaimer
+        markdown:
+          '''
+          ## Presenter Disclaimer
+          <br/>
+          * Had only little experience with JavaScript before.
+          * Started with TypeScript and Node in early 2016.
+          * There might be gaps and some missing facts.
+          * Will be more like a field report, or break room talk.
+          '''
+        notes:
+          '''
+          * coming from the Java/C#/C++/C angle, also done Python before (as scripting/typed language)
+          * recent time used to deepen TS/React/i18n/Express on personal training project(s)
+          * contributed a few minor things (typings) so far
+          * query audience: how many know/use: TS, Node, React?
+          '''
+      }
+    ]
+    {
+      id: agenda
+      markdown:
+        '''
+        ## Agenda
+        <br/>
+        * What is TypeScript? The "basics".
+        * What to expect in the real world.
+        * Development tools and a sample project.
+        * Raising interest in you using TypeScript.
+        '''
+      notes:
+        '''
+        * basics: language overview, tool basics, etc - NOT a workshop
+        * show how things look for real and the challenges
+        '''
+    }
+    {
+      id: ts-project-facts
+      markdown:
+        '''
+        ## TypeScript Project Facts
+        <br/>
+        * Released in 2012.
+        * Open source.
+        * Maintained by Microsoft and community.
+        * One major contributor is Anders Hejlsberg.
+        * Well maintained, open source community.
+        * Fast evolving, now at version 2.4.
+        '''
+      notes:
+        '''
+        * can tell a bit about C# coloring/style TS has
+        * need to stay up to date with TS, new features help to have nicer code
+        '''
+    }
+    {
+      id: typescript-is
+      markdown:
+        '''
+        ## TypeScript is
+        <br/>
+        * A superset of JavaScript.
+        * Type safety added to JavaScript, through annotations, interfaces, etc.
+        * Plus some language features not present in ES yet.
+        * Smart & non-bloaty (type inference, `any`, etc).
+        * Lightweight in the build process, creates JavaScript through transpilation.
+        '''
+      notes:
+        '''
+        * emphasize that JavaScript is TypeScript when run through TS with the right/low settings
+        * type inference avoids a lot of clutter and bloat of code
+        '''
+    }
+    [
+      {
+        id: js-is-ts-1
+        markdown:
+          '''
+          JavaScript is valid TypeScript:
+          ```
+          function hello(name) {
+              console.log("hello", name);
+          }
+          ```
+          Transpiler reports an error:
+          ```
+          src/hellotypescript.ts(5,13): error TS7006: Parameter 'alt'
+          implicitly has an 'any' type.
+          ```
+          Still yields:
+          ```
+          function hello(name) {
+              console.log("hello", name);
+          }
+          //# sourceMappingURL=hellotypescript.js.map
+          ```
+          '''
+        notes:
+          '''
+          * emphasize that JavaScript is TypeScript when run through TS with the right config
+          * not all errors can be configured/ignored away though
+          * type inference avoids a lot of clutter and bloat of code
+          * RECOMMENDED: always read/study/examine generate JS code if unsure what TS really does to its JS
+          '''
+      }
+      {
+        id: js-is-ts-2
+        markdown:
+          '''
+          Even on obvious semantic violations:
+          ```
+          function hello(name: string) {
+              console.log("hello", name);
+          }
+          hello({ name: "me" });
+          ```
+          Reported error:
+          ```
+          Error:(6, 7) TS2345:Argument of type '{ name: string; }' is not
+          assignable to parameter of type 'string'.
+          ```
+          Still yields:
+          ```
+          function hello(name) {
+              console.log("hello", name);
+          }
+          hello({ name: "me" });
+          //# sourceMappingURL=hellotypescript.js.map
+          ```
+          '''
+      }
+    ]
+    [
+      {
+        id: meet-tsc-1
+        markdown:
+          '''
+          ## `tsc`
+          * written in ... TypeScript
+          * `npm install -S typescript`
+          * similar to other transpilers, like Babel
+          * takes `*.ts(x)` sources and creates `*.js` files
+          * generates ES3/5/6+ on its own
+          * adds code for classes, async/await, etc
+          * integrated in IDE: WebStorm, VSC, etc
+          * `ts-loader` to use it in WebPack
+          * could even transpile at runtime
+          '''
+        notes:
+          '''
+          * tsx: yes, also supports JSX emission/parsing
+          * sometimes generate code not 100% compatible across modules, e.g. asyn/await stuff
+          * ts-loader is faily easy to use, like scss transformations
+          '''
+      }
+      {
+        id: meet-tsc-2
+        markdown:
+          '''
+          * usually configured via `tsconfig.json` file
+          * multiple stages possible in build chain (tsc->babel->...)
+          * source map supported, can be chained in WebPack (TS debugging in browsers)
+          * always tries to produce JS, even when there's an error, unless complete nonsense
+          * usually paired with tslint for extra strictness, code formatting cleaniness, etc
+          * `npm install -S tslint`
+          '''
+      }
+    ]
+    {
+      id: ts-language
+      markdown:
+        '''
+        ## TypeScript Language
+        * About type safety, explicit or through inference.
+        * Plus some nifty language features.
+        * Helps to prevent type mistakes at runtime.
+        * Implicitly defines your JavaScript code, in a machine readable form.
+        * Strict, but depends on `tsc` and linter config.
+        * Assists code introspection, e.g. for refactoring.
+        * Interferes where it has to, otherwise it stays out of your business.
+        * It does **not** restrict the dynamic nature of JavaScript. Not wittingly.
+        '''
+      notes:
+        '''
+        * common property-undefined issues
+        * code gains value because the brain API of the developer gets dumped into code
+        * if you want to flexibility or freedom you can configure it so
+        * "wittingly": style is a bit more like C#/Java, hence less JS-like things e.g. flexible parameters
+        '''
+    }
+    [
+      {
+        id: ts-feature-list
+        markdown:
+          '''
+          ## TypeScript Feature List
+          * type annotations
+          * classes, await, arrow functions, template strings
+          * generics
+          * modules and namespaces
+          * tuples
+          * enums (also with strings)
+          * destructuring, spreading
+          * decorators (@something)
+          * rest parameters `(a, b, ...c)`
+          * ...forgottenToMention
+          '''
+        notes:
+          '''
+          * classes+* caught up with ES6, similar import system
+          * modules, namespace -> careful when googling because of outdated information ("internal modules")
+          * attention namespaces ... they go global, personally: using "external modules" everywhere
+          * decorators came from Google/Angular angle (beta)
+          '''
+      }
+      {
+        id: class-example
+        markdown:
+          '''
+          ## Have a taste: example class
+          ```
+          export interface ISay { sayItQuiet(): void; }
+          export class ShowBase {
+            constructor(protected _message: string) {
+            }
+          }
+          export abstract class ShowOff extends ShowBase implements ISay {
+            static intro() { console.log("Ta-da!"); }
+            constructor(protected secret: string, public msg: string) {
+              super(msg);
+            }
+            public get message(): string {
+              return this._message;
+            }
+            public abstract sayItQuiet(): void;
+          }
+          ```
+          '''
+        notes:
+          '''
+          * class will be re-appear later on, please remember it :)
+          '''
+      }
+    ]
+    {
+      id: types-intro
+      markdown:
+        '''
+        ### Types, from simple to sheet-caking ...
+        '''
+    }
+    {
+      id: type-simple
+      markdown:
+        '''
+        ## Simple Type Annotations
+        ```
+        let a1 = 1;                   // is a number through inference
+        let a2: number;               // is a number, explicit
+        let a3: number|undefined = 3; // is a number or undefined
+        let a4: 0|8|15;               // number, but only certain values are allowed
+        let a5: "works"|999|null;     // insane mix, but valid
+
+        a1 = 999;       // OK
+        a1 = "999";     // TS2322:Type '"999"' is not assignable to type 'number'.
+        a2 = "1";       // TS2322:Type '"1"' is not assignable to type 'number'.
+        a3 = undefined; // OK
+        a4 = 15 - 8;    // TS2322:Type 'number' is not assignable to type '0 | 8 | 15'.
+        a5 = "works";   // OK
+        a5 = "abc";     // TS2322:Type '"abc"' is not assignable to type '"works" | 999 | null'.
+        ```
+        '''
+      notes:
+        '''
+        * union types are a big difference to C#/Java/etc, there are also other sophisticated mergers possible
+        * TypeScript is strict about null and undefined
+        '''
+    }
+    {
+      id: type-simple-plus
+      markdown:
+        '''
+        ## Advanced Type Annotations
+        ```
+        let a: (n: number, cb?: () => void) => number;
+        let b: { [key: string]: () => { x: number, y: number } };
+
+        a = function (n: number) {
+            return n + 554;
+        };
+        b = {
+            one: () => { return { x: 3, y: 4 }; },
+            two: () => { return { x: 0, y: a(1) }; },
+        };
+        ```
+        '''
+      notes:
+        '''
+        * and it can get much more complicated :)
+        '''
+    }
+    [
+      {
+        id: interfaces-1
+        markdown:
+          '''
+          ## Interfaces
+          * define layout of objects, iterables, functions, etc
+          * interface is really "the thing must match this, no matter what it is"
+          * unlike Java they *describe*, are not types themselves
+          * useful e.g. for frontend/backend contracts
+          '''
+      }
+      {
+        id: interfaces-2
+        markdown:
+          '''
+          Interface Example:
+          ```
+          interface IStuff {
+              callbacks: ((msg: string) => void)[];
+              comments: string[];
+              name: string;
+              title?: string;
+          }
+          ```
+          ```
+          let stuff: IStuff = {
+              callbacks: [ () => {} ],
+              comments: [ "well", "fine", "so what" ],
+              name: "unknown",
+          };
+          const title1: string = stuff.title; // BAD: Error TS2322
+          const title1: string = stuff.title!; // GOOD: you are confident
+          const title2 = stuff.title; // GOOD: title: string|undefined
+          ```
+          '''
+        notes:
+          '''
+          * title is optional, no using it
+          * TS smart: simple callback valid, because it doesn't use the msg parameter, no bloat
+          '''
+      }
+    ]
+    {
+      id: types-examples-intro
+      markdown:
+        '''
+        ## Other people's types
+        * Many modules already have *typings* available.
+        * Node, React, e.g. is fully covered.
+        * Challenge is to use them the right way.
+        * Not always obvious on how to ...
+        '''
+      notes:
+        '''
+        * we'll cover typings in a few minutes
+        '''
+    }
+    {
+      id: types-examples-react-onclick
+      markdown:
+        '''
+        Example: React `onClick()` handler
+        ```
+        ...
+              <div onClick={this.onClick.bind(this)} ...>
+                ...
+              </div>
+        ...
+
+        private onClick(e: React.MouseEvent<HTMLDivElement>) {
+          e.preventDefault();
+          ...
+        }
+        ```
+        '''
+      notes:
+        '''
+        * was not obvious that React has its own event types (although in hindsight, yes, synthetic)
+        * most examples online were in JS and didn't worry about type or just use any
+        '''
+    }
+    [
+      {
+        id: types-examples-react-intl-1
+        markdown:
+          '''
+          Example: React component with react-intl
+          ```
+          export const Product = injectIntl<IProductProps>(
+            class extends React.Component<
+              IProductProps & InjectedIntlProps, {}> {
+              ...
+              public render() {
+                ...
+                        {product.description[this.props.intl.locale]}
+                ...
+              }
+          });
+          ```
+          '''
+      }
+      {
+        id: types-examples-react-intl-2
+        markdown:
+          '''
+          After encountering errors like:
+          ```
+          Error:(66, 70) TS2322:Type '{ id: Name.TruPax; }' is not assignable to type
+            'IntrinsicAttributes & IntrinsicClassAttributes<Component
+            <IProductProps & InjectedIntlProps, Compo...'.
+            Type '{ id: Name.TruPax; }' is not assignable to type
+            'Readonly<IProductProps & InjectedIntlProps>'.
+              Property 'intl' is missing in type '{ id: Name.TruPax; }'.
+          ```
+          '''
+      }
+      {
+        id: types-sheetcaking
+        markup:
+          '''
+          <div>
+            Scream %/&! into the cake ...
+            <img src="gfx/sheetcaking.jpg"/>
+          </div>
+          '''
+      }
+    ]
+    {
+      id: types-any
+      markdown:
+        '''
+        ## The `any` escape
+        ```
+        let a: any;
+        a = undefined;
+        a = { x: 1 };
+        a = (x: number) => x + 1;
+        ```
+        * If you cannot find a proper type for it, use `any`.
+        * The one who uses `any` is **weak**.
+        * If a package lacks types: create typings ...
+        '''
+      notes:
+        '''
+        * how often can something really be anything?
+        * only sometimes data structures can be very hard to describe
+        * any also can happen implicitly
+        '''
+    }
+    {
+      id: typings-intro
+      markdown:
+        '''
+        ## Typings in a nutshell
+        * Come as regular TypeScript source files.
+        * Carry the extension `.d.ts`.
+        * Don't cause any JavaScript code being emitted.
+        * Are either a byproduct of transpilaton, containing just the declarative portion.
+        * Or get handwritten to make existing JavaScript source code accessible to TypeScript.
+        * Get discovered and used by `tsc` automatically.
+        * Nicely declare the public API of a module.
+        * Can help tools like IDEs to index/browse sources.
+        * Make even your pure-JS module look spiffy.
+        '''
+      notes:
+        '''
+        * uuh ... typings, that person knows what's required
+        '''
+    }
+    [
+      {
+        id: typings-example-tsc
+        markdown:
+          '''
+          ## Typings generated by `tsc`
+          From our former class example:
+          ```
+          export interface ISay {
+              sayItQuiet(): void;
+          }
+          export declare class ShowBase {
+              protected _message: string;
+              constructor(_message: string);
+          }
+          export declare abstract class ShowOff extends ShowBase implements ISay {
+              protected secret: string;
+              msg: string;
+              static intro(): void;
+              constructor(secret: string, msg: string);
+              readonly message: string;
+              abstract sayItQuiet(): void;
+          }
+          ```
+          '''
+      }
+      {
+        id: typings-example-manual
+        markdown:
+          '''
+          ## Typings created manually
+          * No typings were available for npm package *is-ip*.
+          * So they got created by reading the documentation and sources, i.e. guesswork.
+          * First tested locally in own project as `is-ip.d.ts`.
+          * Later on submitted to the *DefinitelyTyped* repo.
+          ```
+          declare function isIp(input: string): boolean;
+          declare namespace isIp {
+          function v4(input: string): boolean;
+          function v6(input: string): boolean;
+          }
+          export = isIp;
+          ```
+          '''
+      }
+    ]
+    {
+      id: typings-install
+      markdown:
+        '''
+        When using other packages you want to have their typings for your TypeScript project.
+
+        Hence the common steps are:
+        ```
+        npm install some-package
+        npm install --save-dev @types/some-package
+        ```
+        If you see something like this:
+        ```
+        $ npm install --save-dev @types/some-package
+        npm ERR! code E404
+        npm ERR! 404 Not Found: @types/some-package@latest
+
+        npm ERR! A complete log of this run can be found in:
+        npm ERR!     /Users/test/.npm/_logs/2017-08-24T08_04_13_677Z-debug.log
+        ```
+        ... then you're likely out of luck.
+        '''
+    }
+    [
+      {
+        id: typings-fixit
+        markdown:
+          '''
+          # Missing typings?
+          * They might be under a different name, e.g. `@types/reveal` for `reveal.js`.
+          * The package might come with typings. Not very often, but it happens.
+          * Go typeless by `require("some-package")`.
+          * Write your own `some-package.d.ts`.
+          * Offer them the package owner. Expect rejection.
+          * Please submit to *DefinitelyTyped* GitHub repo.
+          '''
+      }
+      {
+        id: typings-warning
+        markdown:
+          '''
+          # Typings are not flawless
+          * Might be outdated, e.g. missing things.
+          * Internal typings might conflict with external ones.
+          * They could be ... wrong-ish.
+          * *DefinitelyTyped* reviewers check them though.
+          '''
+        notes:
+          '''
+          * jimp has internal-external conflict
+          '''
+      }
+    ]
+    {
+      id: about-revealjs
+      markdown:
+        '''
+        Talking about *reveal.js* ...
+        '''
+        notes:
+          '''
+          * ESC to get out of fullscreen
+          * show around WebStorm project, show its TypeScript support and the possibility to add TS just like that
+          * open developer console, react-revealjs.tsx on the bottom
+          * breakpoint at for-looping sectionsToSlides, reload page
+          * navigate back quickly via using overview
+          '''
+    }
+    {
+      id: git-repos
+      markdown:
+        '''
+        To get this presentation:
+        ```
+        git clone https://github.com/coderslagoon/hellotypescript.git
+        ```
+        <br/>
+        Example of npm package written in TypeScript:
+        ```
+        git clone https://github.com/coderslagoon/country-block-extra.git
+        ```
+        <br/>
+        Website in TypeScript/React/react-intl/Express/etc:
+        ```
+        git clone https://github.com/coderslagoon/coderslagoon.git
+        ```
+        '''
+      notes:
+        '''
+        * CL will be available end of this/next week
+        '''
+    }
+    {
+      id: outro
+      markdown:
+        '''
+        Questions?
+         <br/>
+         <br/>
+        `info@coderslagoon.com`
+        <br/>
+        <br/>
+        **Thanks for watching.**
+        '''
+    }
+  ]
+}
