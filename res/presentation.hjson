@@ -167,15 +167,15 @@
         markdown:
           '''
           ## `tsc`
-          * written in ... TypeScript
+          * Written in ... TypeScript.
           * `npm install -S typescript`
-          * similar to other transpilers, like Babel
-          * takes `*.ts(x)` sources and creates `*.js(x)` files
-          * generates ES3/5/6+ on its own
-          * adds code for classes, async/await, etc
-          * integrated in IDE: WebStorm, VSC, etc
-          * `ts-loader` to use it in WebPack
-          * could even transpile at runtime
+          * Similar to other transpilers, like Babel.
+          * Takes `*.ts(x)` sources and creates `*.js(x)` files.
+          * Generates ES3/5/6+ on its own,
+          * Adds code for classes, async/await, etc.
+          * Integrated in IDEs: WebStorm, VSC, ...
+          * There is *ts-loader* to use it in WebPack.
+          * One could even transpile at runtime.
           '''
         notes:
           '''
@@ -188,11 +188,11 @@
         id: meet-tsc-2
         markdown:
           '''
-          * usually configured via `tsconfig.json` file
-          * multiple stages possible in build chain (tsc->babel->...)
-          * source maps supported, can be chained in WebPack (TS debugging in browsers)
-          * always tries to produce JS, even when there's an error, unless complete nonsense
-          * usually paired with tslint for extra strictness, code formatting cleaniness, etc
+          * Usually configured via `tsconfig.json` files.
+          * Multiple stages possible in build chain (tsc->babel->...).
+          * Source maps supported, can be chained in WebPack (TS debugging in browsers).
+          * Always tries to produce JS, even when there's an error, unless complete nonsense.
+          * Usually paired with `tslint` for extra strictness, code formatting cleaniness, etc.
           * `npm install -S tslint`
           '''
       }
@@ -279,6 +279,10 @@
         '''
         ### Types, from simple to sheet-caking ...
         '''
+      notes:
+        '''
+        * general stuff and personal favorites and encounters
+        '''
     }
     {
       id: type-simple
@@ -328,6 +332,7 @@
       notes:
         '''
         * and it can get much more complicated :)
+        * inline type definition possible, but bloaty/hard to reach, hence interfaces and types declarations are used
         '''
     }
     [
@@ -336,10 +341,14 @@
         markdown:
           '''
           ## Interfaces
-          * define layout of objects, iterables, functions, etc
-          * interface is really "the thing must match this, no matter what it is"
-          * unlike Java they *describe*, are not types themselves
-          * useful e.g. for frontend/backend contracts
+          * Define layout of objects, iterables, functions, etc.
+          * An interface is really "the thing must match this, no matter what it is".
+          * Unlike Java they *describe*, are not types themselves.
+          * Useful e.g. for frontend/backend contracts.
+          '''
+        notes:
+          '''
+          * e.g. "implements intf" is used for checking the class the fullful the contract, then the ishow's over
           '''
       }
       {
@@ -364,12 +373,14 @@
           const title1: string = stuff.title; // BAD: Error TS2322
           const title1: string = stuff.title!; // GOOD: you are confident
           const title2 = stuff.title; // GOOD: title: string|undefined
+          console.log(stuff.comment); // BAD: Error TS2339
           ```
           '''
         notes:
           '''
           * title is optional, no using it
           * TS smart: simple callback valid, because it doesn't use the msg parameter, no bloat
+          * comment vs comments ... typical JS typo error, prevented by TS here
           '''
       }
     ]
@@ -386,6 +397,7 @@
       notes:
         '''
         * we'll cover typings in a few minutes
+        * personal-best examples following now ...
         '''
     }
     {
@@ -470,7 +482,8 @@
         a = (x: number) => x + 1;
         ```
         * If you cannot find a proper type for it, use `any`.
-        * The one who uses `any` is **weak**.
+        * Using `any` is offensive and a sign of weakness `:)`
+        * TS code review and see an `any`? Say something!
         * If a package lacks types: create typings ...
         '''
       notes:
@@ -550,7 +563,7 @@
       id: typings-install
       markdown:
         '''
-        When using other packages you want to have their typings for your TypeScript project.
+        When using other packages you want to have their typings for your (TypeScript) project.
 
         Hence the common steps are:
         ```
@@ -582,6 +595,11 @@
           * Offer them the package owner. Expect rejection.
           * Please submit to *DefinitelyTyped* GitHub repo.
           '''
+        notes:
+          '''
+          * DT propagation time is usually a few weeks (from review to @types appearance)
+          * good news: you have a job and might be the maintainer for typings if there's module evolution
+          '''
       }
       {
         id: typings-warning
@@ -595,7 +613,7 @@
           '''
         notes:
           '''
-          * jimp has internal-external conflict
+          * jimp has internal-external conflict, was another sheetcake moment
           '''
       }
     ]
@@ -648,7 +666,7 @@
         `info@coderslagoon.com`
         <br/>
         <br/>
-        **Thanks for watching.**
+        **Thanks for watching and keep typing.**
         '''
     }
   ]
