@@ -15,14 +15,16 @@ const baseOptions: RevealOptions = {
         {
             condition: () => !!document.querySelector( "[data-markdown]" ),
             src: "plugin/markdown/marked.js",
-        },
-        {
+        }, {
             condition: () => !!document.querySelector( "[data-markdown]" ),
             src: "plugin/markdown/markdown.js",
-        },
-        {
+        }, {
             async: true,
             src: "plugin/notes/notes.js",
+        }, {
+            async: true,
+            callback: () => hljs.initHighlightingOnLoad(),
+            src: "plugin/highlight/highlight.js",
         },
     ],
 };

@@ -9,8 +9,10 @@
     "url": "https://github.com/coderslagoon/hellotypescript.git"
   },
   "dependencies": {
+    "@types/highlight.js": "^9.1.10",
     "@types/reveal": "^3.3.33",
     "headjs": "^1.0.3",
+    "highlight.js": "^9.12.0",
     "hjson": "^3.1.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
