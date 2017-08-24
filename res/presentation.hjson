@@ -189,7 +189,7 @@
           '''
           * usually configured via `tsconfig.json` file
           * multiple stages possible in build chain (tsc->babel->...)
-          * source map supported, can be chained in WebPack (TS debugging in browsers)
+          * source maps supported, can be chained in WebPack (TS debugging in browsers)
           * always tries to produce JS, even when there's an error, unless complete nonsense
           * usually paired with tslint for extra strictness, code formatting cleaniness, etc
           * `npm install -S tslint`
